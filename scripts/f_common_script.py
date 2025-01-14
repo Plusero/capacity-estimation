@@ -27,22 +27,23 @@ def add_trendline(x, y, ax):
     y_sorted = y[sort_idx]
 
     # Fit polynomial and create trendline
-    z = np.polyfit(x_sorted, y_sorted, 5)
+    z = np.polyfit(x_sorted, y_sorted, 2)
     p = np.poly1d(z)
     ax.plot(x_sorted, p(x_sorted), "--", color='red', linewidth=2)
 
 
-def plot_actual_vs_predicted(y_test, y_pred, fig_name='../figs/actual_vs_predicted.pdf') -> None:
+def plot_actual_vs_predicted(y_test, y_pred, fig_name='../figs/actual_vs_predicted.pdf', xlabel='Actual', ylabel='Estimated', trendline=True) -> None:
     # plot the actual vs predicted, with a line of y=x
     plt.style.use(['science'])
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.scatter(y_test, y_pred)
     ax.plot([y_test.min(), y_test.max()], [
         y_test.min(), y_test.max()], 'k-', lw=2)
-    add_trendline(y_test, y_pred, ax)
-    ax.set_xlabel('Actual')
-    ax.set_ylabel('Predicted')
-    ax.set_title('Actual vs Predicted')
+    if trendline:
+        add_trendline(y_test, y_pred, ax)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    # ax.set_title('Actual vs Predicted')
     plt.savefig(fig_name, format='pdf')
     plt.show()
 
