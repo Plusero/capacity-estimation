@@ -9,7 +9,7 @@ from sklearn.linear_model import LinearRegression
 import re
 import scienceplots
 from matplotlib.colors import TwoSlopeNorm
-
+import seaborn as sns
 
 # Section:Global variables
 my_seed = 42
