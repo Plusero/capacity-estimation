@@ -114,8 +114,8 @@ class data_explorer():
         ax.set_xticklabels([tick.get_text().split('-')[1]
                             for tick in ax.get_xticklabels()])
         # set the rotation of xticklabels to 0 degrees
-        plt.xticks(fontname='DejaVu Sans Mono', fontsize=10, rotation=0)
-        plt.yticks(fontname='DejaVu Sans Mono', fontsize=10)
+        plt.xticks(fontsize=10, rotation=0, fontname='DejaVu Sans Mono')
+        plt.yticks(fontsize=10, fontname='DejaVu Sans Mono')
         # place text [2017,2018,2019] at the bottom of the plot,
         # respectively at 20%, 60%, and 95% of the x-axis
         num_months = len(ax.get_xticklabels())
@@ -123,7 +123,7 @@ class data_explorer():
         y_length = ax.get_ylim()[1] - ax.get_ylim()[0]
         year_position = y_length * -1 * 1.05
         ax.text(x=num_months * 0.2, y=year_position, s='2017',
-                fontname='DejaVu Sans Mono', fontsize=12)
+                fontsize=12, fontname='DejaVu Sans Mono')
         ax.text(x=num_months * 0.6, y=year_position, s='2018',
                 fontname='DejaVu Sans Mono', fontsize=12)
         ax.text(x=num_months * 0.95, y=year_position, s='2019',
@@ -135,6 +135,7 @@ class data_explorer():
         # save the figure under folder "figs"
         plt.savefig(fname='../figs/data_availability_heat_map.pdf',
                     format='pdf', bbox_inches='tight')
+        plt.show()
         plt.close()
         # remove the year-month column
         self.pv_data = self.pv_data.drop(columns=['year-month'])
