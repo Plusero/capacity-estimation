@@ -6,8 +6,9 @@ First, install the dependencies using the requirements.txt file.
 ```
 pip install -r requirements.txt
 ```
+Second, put the file "Households in Amsterdam PV and demand data.xlsx" under the path 'data/nl/'.
 
-Run the following Jupyter notebooks in the order below, to obtain the results.
+Third, run the following Jupyter notebooks in the order below, to obtain the results.
 1. ams_data_explore.ipynb
 2. ams_weather_explore.ipynb
 3. ams_data_merge.ipynb
@@ -53,7 +54,7 @@ output:
 1. ams_data_merged_preprocessed.csv
 2. ams_pv_capacity_from_pv_profiles.csv
 
-capacity_estimation.ipynb:
+capacity_estimation_SA.ipynb:
 
 input:
 1. ams_data_merged_preprocessed.csv

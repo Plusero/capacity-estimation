@@ -57,6 +57,7 @@ MarkupSafe==2.1.5
 matplotlib==3.9.2
 matplotlib-inline==0.1.7
 mistune==3.0.2
+mlxtend==0.23.3
 nbclient==0.10.0
 nbconvert==7.16.4
 nbformat==5.10.4
@@ -64,6 +65,7 @@ nest-asyncio==1.6.0
 notebook==7.2.1
 notebook_shim==0.2.4
 numpy==2.0.1
+nvidia-nccl-cu12==2.23.4
 openpyxl==3.1.5
 overrides==7.7.0
 packaging==24.1
