@@ -3,6 +3,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 import matplotlib.dates as mdates
+import numpy as np
 
 
 class data_explorer():
@@ -114,8 +115,12 @@ class data_explorer():
         ax.set_xticklabels([tick.get_text().split('-')[1]
                             for tick in ax.get_xticklabels()])
         # set the rotation of xticklabels to 0 degrees
-        plt.xticks(fontsize=10, rotation=0, fontname='DejaVu Sans Mono')
-        plt.yticks(fontsize=10, fontname='DejaVu Sans Mono')
+        plt.xticks(fontname='DejaVu Sans Mono', fontsize=10, rotation=0)
+        # replace the yticks with number from 27 to 1 (reversed)
+        plt.yticks(np.arange(len(self.monthly_data_availability.index)) + 0.5,
+                   range(len(self.monthly_data_availability.index), 0, -1),
+                   fontname='DejaVu Sans Mono', fontsize=10)
+        # plt.yticks(fontname='DejaVu Sans Mono', fontsize=10)
         # place text [2017,2018,2019] at the bottom of the plot,
         # respectively at 20%, 60%, and 95% of the x-axis
         num_months = len(ax.get_xticklabels())
@@ -123,7 +128,7 @@ class data_explorer():
         y_length = ax.get_ylim()[1] - ax.get_ylim()[0]
         year_position = y_length * -1 * 1.05
         ax.text(x=num_months * 0.2, y=year_position, s='2017',
-                fontsize=12, fontname='DejaVu Sans Mono')
+                fontname='DejaVu Sans Mono', fontsize=12)
         ax.text(x=num_months * 0.6, y=year_position, s='2018',
                 fontname='DejaVu Sans Mono', fontsize=12)
         ax.text(x=num_months * 0.95, y=year_position, s='2019',
@@ -135,7 +140,6 @@ class data_explorer():
         # save the figure under folder "figs"
         plt.savefig(fname='../figs/data_availability_heat_map.pdf',
                     format='pdf', bbox_inches='tight')
-        plt.show()
         plt.close()
         # remove the year-month column
         self.pv_data = self.pv_data.drop(columns=['year-month'])

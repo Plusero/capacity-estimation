@@ -23,36 +23,6 @@ class data_preprocessor():
         self.latitude = 52.317
         self.longitude = 4.79
 
-    def estimate_pv_capacity_from_pv_profiles(self):
-        # drop the columns of time, weather, and weather normalized
-        time_columns = ['datetime', 'Timestamp',
-                        'HoD', 'dow', 'doy', 'month', 'year']
-        weather_columns = ['irradiance', 'temperature',
-                           'precipitation', 'wind_speed', 'cloud_cover']
-        weather_norm_columns = ['irradiance_norm', 'temperature_norm',
-                                'precipitation_norm', 'wind_speed_norm', 'cloud_cover_norm']
-
-        # Only drop columns that exist in the DataFrame
-        columns_to_drop = [col for col in time_columns + weather_columns +
-                           weather_norm_columns if col in self.pv_data.columns]
-        df = self.pv_data.drop(columns=columns_to_drop)
-        # find the maximum value of each column
-        # rescale by 1000/current_irradiance
-        self.pv_capacity_from_pv_profiles = df.max()
-        print(f"capacity before rescaling")
-        print(self.pv_capacity_from_pv_profiles)
-        max_index = df.idxmax()
-        # find the corresponding irradiance
-        irradiance = self.pv_data.loc[max_index]['irradiance']
-        # extract the value of irradiance
-        irradiance = irradiance.values[0]
-        # rescale by 1000/irradiance
-        self.pv_capacity_from_pv_profiles = self.pv_capacity_from_pv_profiles.multiply(
-            1000/irradiance)
-        print(f"capacity after rescaling")
-        print(self.pv_capacity_from_pv_profiles)
-        return None
-
     def estimate_pv_capacity_from_pv_profiles_avg_high_values(self):
         # drop the columns of time, weather, and weather normalized
         time_columns = ['datetime', 'Timestamp',
