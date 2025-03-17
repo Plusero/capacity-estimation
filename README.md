@@ -5,12 +5,12 @@ This repository contains the code for the paper "A Data-efficient Capacity Estim
 
 The schematic overview of the proposed method is shown in the following figure.
 
-![alt text](figs/descriptions/info_flow.png)
+![alt text](./figs/descriptions/info_flow.png)
 where the detailed description could be seen in the algorithm description below.
 
 ## Algorithmic Description
-![alt text](figs/descriptions/algo1.png)
-![alt text](figs/descriptions/algo2.png)
+![alt text](./figs/descriptions/algo1.png)
+![alt text](./figs/descriptions/algo2.png)
 ## Usage Instructions
 First, install the dependencies using the requirements.txt file.
 ```
