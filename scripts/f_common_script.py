@@ -17,7 +17,22 @@ np.random.seed(my_seed)
 
 
 # Section:Functions for plotting
-def add_trendline(x, y, ax):
+def add_trendline(x: np.ndarray, y: np.ndarray, ax: plt.Axes) -> None:
+    """
+    Adds a quadratic trendline to a given plot.
+
+    This function sorts the input data, fits a second-order polynomial
+    to the sorted data, and plots the resulting trendline on the provided
+    Axes object.
+
+    Parameters:
+    x (np.ndarray or array-like): The x-coordinates of the data points.
+    y (np.ndarray or array-like): The y-coordinates of the data points.
+    ax (matplotlib.axes.Axes): The Axes object on which to plot the trendline.
+
+    Returns:
+    None
+    """
     # Sort x and y values to ensure a continuous line
     # convert x and y to numpy array
     x = np.array(x)
@@ -32,7 +47,24 @@ def add_trendline(x, y, ax):
     ax.plot(x_sorted, p(x_sorted), "--", color='red', linewidth=2)
 
 
-def plot_actual_vs_predicted(y_test, y_pred, fig_name='../figs/actual_vs_predicted.pdf', xlabel='Actual', ylabel='Estimated', trendline=True) -> None:
+def plot_actual_vs_predicted(y_test: np.ndarray, y_pred: np.ndarray, fig_name: str = '../figs/actual_vs_predicted.pdf', xlabel: str = 'Actual', ylabel: str = 'Estimated', trendline: bool = True) -> None:
+    """
+    Plots the actual vs. predicted values and optionally a trendline.
+    This function creates a scatter plot of the actual vs. predicted values,
+    draws a reference line of y=x, and optionally adds a quadratic trendline.
+    The plot is saved as a PDF file.
+
+    Parameters:
+    y_test (array-like): The actual values.
+    y_pred (array-like): The predicted values.
+    fig_name (str): The file path where the plot will be saved. Default is '../figs/actual_vs_predicted.pdf'.
+    xlabel (str): The label for the x-axis. Default is 'Actual'.
+    ylabel (str): The label for the y-axis. Default is 'Estimated'.
+    trendline (bool): Whether to add a trendline to the plot. Default is True.
+
+    Returns:
+    None
+    """
     # plot the actual vs predicted, with a line of y=x
     plt.style.use(['science'])
     fig, ax = plt.subplots(figsize=(6, 4))
@@ -43,15 +75,34 @@ def plot_actual_vs_predicted(y_test, y_pred, fig_name='../figs/actual_vs_predict
         add_trendline(y_test, y_pred, ax)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    # ax.set_title('Actual vs Predicted')
     plt.savefig(fig_name, format='pdf')
     plt.show()
 
-# check the 'normalized_total_pv_gen_correct' during date 2022-07-01 to 2022-07-31
 
+def df_common_xylabel_plot(df: pd.DataFrame, y: list[str], doy_start: int = 0, doy_end: int = 366, year: list[int] = [2017, 2018, 2019], xlabel: str = 'Datetime', ylabel: str = "example ylabel", layout: tuple = (7, 4), subplots: bool = True, figsize: tuple = (20, 20)) -> None:
+    """
+    Plots specified columns of a DataFrame over a given range of time.
 
-def df_common_xylabel_plot(df, y, doy_start=0, doy_end=366, year=[2017, 2018, 2019], xlabel='Datetime', ylabel="example ylabel", layout=(7, 4), subplots=True, figsize=(20, 20)):
-    # make a list to plot, excluding the columns of datetime and Timestamp
+    This function filters the DataFrame based on the day of the year and the specified years,
+    and then plots the specified columns against the 'datetime' column. It supports creating
+    subplots and adds common x and y labels to the figure.
+
+    Parameters:
+    df (pandas.DataFrame): The DataFrame containing the data to plot.
+    y (str or list of str): The column(s) to plot on the y-axis.
+    doy_start (int): The starting day of the year for filtering. Default is 0.
+    doy_end (int): The ending day of the year for filtering. Default is 366.
+    year (list of int): The years to include in the plot. Default is [2017, 2018, 2019].
+    xlabel (str): The label for the x-axis. Default is 'Datetime'.
+    ylabel (str): The label for the y-axis. Default is 'example ylabel'.
+    layout (tuple): The layout of the subplots (rows, columns). Default is (7, 4).
+    subplots (bool): Whether to create subplots for each column. Default is True.
+    figsize (tuple): The size of the figure. Default is (20, 20).
+
+    Returns:
+    None
+    """
+    # make a list of columns to plot, excluding the columns of datetime and Timestamp
     axes = df[(df['doy'] >= doy_start) & (df['doy'] <= doy_end) & (df['year'].isin(year))].plot(
         x='datetime', y=y, subplots=subplots, figsize=figsize, layout=layout, sharex=True, xlabel='')
     if subplots == True:
