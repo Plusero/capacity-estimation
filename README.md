@@ -16,7 +16,7 @@ First, install the dependencies using the requirements.txt file.
 ```
 pip install -r requirements.txt
 ```
-Second, put the file "Households in Amsterdam PV and demand data.xlsx" under the path 'data/nl/'. If there is no such folder called 'data', create a folder called 'data' under the root directory, and then create a folder called 'nl' under the 'data' folder.
+Second, put the file "Households in Amsterdam PV and demand data.xlsx" and "ams_weather_data.txt"under the path 'data/nl/'. If there is no such folder called 'data', create a folder called 'data' under the root directory, and then create a folder called 'nl' under the 'data' folder.
 
 Third, run the following Jupyter notebooks in the order below, to obtain the results.
 1. ams_data_explore.ipynb
