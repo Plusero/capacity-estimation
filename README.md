@@ -20,6 +20,7 @@ This repository contains the code for the paper "A Data-efficient Capacity Estim
    3. `ams_data_merge.ipynb`.
    4. `ams_data_preprocessing.ipynb`.
    5. `capacity_estimation_SA.ipynb`.
+Note that most of the results are obtained in the `capacity_estimation_SA.ipynb` notebook.
 
 # Overview of the Proposed Method
 
