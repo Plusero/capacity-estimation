@@ -4,3 +4,5 @@ data/nl/*
 figs/*
 !figs/descriptions/
 !figs/descriptions/*
+# ignore all the python cache files
+*.pyc
