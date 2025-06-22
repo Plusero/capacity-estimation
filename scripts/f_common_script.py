@@ -1,15 +1,9 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
-from sklearn.ensemble import RandomForestRegressor
-from xgboost import XGBRegressor
-from sklearn.linear_model import LinearRegression
-import re
-import scienceplots
-from matplotlib.colors import TwoSlopeNorm
 import seaborn as sns
+import scienceplots
 
 # Section:Global variables
 my_seed = 42
@@ -113,3 +107,85 @@ def df_common_xylabel_plot(df: pd.DataFrame, y: list[str], doy_start: int = 0, d
     fig.text(0.08, 0.5, ylabel, va='center', rotation='vertical', size=20)
     # add a common x label
     fig.text(0.5, 0.0, xlabel, ha='center', size=20)
+
+
+def calc_percentage_error(real_capacities: np.ndarray, estimated_capacities: np.ndarray) -> float:
+    """
+    Calculates the percentage error between real and estimated capacities.
+
+    This function computes the percentage error. If any of the input arrays contain NaN values,
+    the function returns NaN.
+
+    Parameters:
+    real_capacities (np.ndarray or array-like): The actual capacities.
+    estimated_capacities (np.ndarray or array-like): The estimated capacities.
+
+    Returns:
+    float: The percentage error, or NaN if any input contains NaN values.
+    """
+    if np.isnan(real_capacities).any() or np.isnan(estimated_capacities).any():
+        return np.nan
+    return (real_capacities.sum() - estimated_capacities.sum()) / real_capacities.sum() * 100
+
+
+def calc_mean_percentage_error(real_capacities: np.ndarray, estimated_capacities: np.ndarray) -> float:
+    """
+    Calculates the mean percentage error between real and estimated capacities.
+
+    This function computes the mean percentage error averaging over the individual
+    percentage errors for each household in the input arrays.
+    If any of the input arrays contain NaN values, the function returns NaN.
+
+    Parameters:
+    real_capacities (array-like): The actual capacities.
+    estimated_capacities (array-like): The estimated capacities.
+
+    Returns:
+    float: The mean percentage error, or NaN if any input contains NaN values.
+    """
+    if np.isnan(real_capacities).any() or np.isnan(estimated_capacities).any():
+        return np.nan
+    # n is the length of real_capacities
+    n = real_capacities.size
+    # individual_errors is the percentage error of each household
+    individual_errors = (real_capacities - estimated_capacities) / \
+        real_capacities  # Avoid division by zero
+    return individual_errors.sum()/n*100
+
+
+def calc_error_factor(real_capacities_sum: float, estimated_capacities_sum: float) -> float:
+    """
+    Calculates the error factor between real and estimated capacities.
+
+    This function computes the error factor by dividing the sum of real capacities
+    by the sum of estimated capacities.
+
+    Parameters:
+    real_capacities_sum (float): The sum of real capacities.
+    estimated_capacities_sum (float): The sum of estimated capacities.
+
+    Returns:
+    float: The error factor, or NaN if any input contains NaN values.
+    """
+    return real_capacities_sum/estimated_capacities_sum
+
+
+def calc_r2_score(real_capacities: np.ndarray, estimated_capacities: np.ndarray) -> float:
+    """
+    Calculates the R2 score between real and estimated capacities.
+
+    This function computes the R2 score by comparing the sum of real capacities
+    to the sum of estimated capacities.
+
+    Parameters:
+    real_capacities (np.ndarray or array-like): The actual capacities.
+    estimated_capacities (np.ndarray or array-like): The estimated capacities.
+
+    Returns:
+    float: The R2 score, or NaN if any input contains NaN values.
+    """
+    # if there is any NaN in real_capacities or estimated_capacities, return NaN
+    # otherwise, return the R2 score
+    if np.isnan(real_capacities).any() or np.isnan(estimated_capacities).any():
+        return np.nan
+    return r2_score(real_capacities, estimated_capacities)
