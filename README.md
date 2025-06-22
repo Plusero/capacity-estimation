@@ -2,8 +2,8 @@
 This repository contains the code for the paper "A Data-efficient Capacity Estimation Method for Behind-the-Meter Solar PV Systems", accepted by [IEEE Power Tech 2025](https://2025.ieee-powertech.org/).
 
 # Structure of the project
-`notebooks/` - contains the Jupyter notebooks that conduct the experiments
-`scripts/` - contains the scripts that are used in the experiments
+`notebooks/` - contains the main notebooks that conduct the experiments
+`modules/` - contains the modules that are used in the experiments
 `figs/` - contains the figures of results of the experiments
 `data/` - contains the data used in the experiments
 `README.md` - this file, describing the project
